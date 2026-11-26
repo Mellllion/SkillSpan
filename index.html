@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SkillBridge - A campus skill exchange platform where students teach and learn from each other.">
+<title>SkillSpan | Campus Skill Exchange</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">𝜗ৎ</div> SkillSpan</div>
+  <div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav" aria-label="Main navigation">
+      <button class="active" data-page="dashboard"><span class="ico">▦</span> Dashboard</button>
+      <button data-page="explore"><span class="ico">⌕</span> Explore Skills</button>
+      <button data-page="requests"><span class="ico">↗</span> My Requests</button>
+      <button data-page="leaderboard"><span class="ico">♛</span> Leaderboard</button>
+    </nav>
+  </div>
+  <div class="sidebar-bottom"><strong>Learn. Share. Grow.</strong><p>Your next skill is one conversation away. Share what you know and discover something new.</p><button class="primary" style="width:100%" onclick="openSkillModal()">+ Share a skill</button></div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div><div class="eyebrow">CAMPUS COMMUNITY</div><h1 id="pageTitle">Dashboard</h1><p class="subtitle" id="pageSubtitle">Connect with students. Exchange skills. Grow together.</p></div>
+    <div class="top-actions"><button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark mode">☾</button><button class="primary" onclick="openSkillModal()">＋ Add a skill</button><div class="avatar" title="Student profile">ST</div></div>
+  </header>
+
+  <section class="page active" id="dashboard">
+    <div class="hero"><div><h2>Turn your knowledge into someone's opportunity.</h2><p>Teach a skill you know, learn a skill you need, and build a stronger campus community — one exchange at a time.</p></div><button class="primary" onclick="showPage('explore')">Explore skills&nbsp; →</button></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-top"><span>Skills Available</span><span class="stat-icon">✧</span></div><strong id="statSkills">0</strong><small>Ready to explore</small></div>
+      <div class="stat"><div class="stat-top"><span>Student Mentors</span><span class="stat-icon">♙</span></div><strong id="statMentors">0</strong><small>Sharing their knowledge</small></div>
+      <div class="stat"><div class="stat-top"><span>My Requests</span><span class="stat-icon">↗</span></div><strong id="statRequests">0</strong><small>Learning connections</small></div>
+      <div class="stat"><div class="stat-top"><span>Skill Categories</span><span class="stat-icon">▦</span></div><strong id="statCategories">0</strong><small>Areas to discover</small></div>
+    </div>
+    <div class="content-grid">
+      <div><div class="section-head"><div><h2>Recently shared skills</h2><p>Fresh opportunities from your campus</p></div><button class="secondary" onclick="showPage('explore')">View all</button></div><div class="card"><div class="skill-list" id="recentSkills"></div></div></div>
+      <div><div class="section-head"><div><h2>Community champions</h2><p>Students making an impact</p></div></div><div class="card" id="topPeople"></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="explore">
+    <div class="section-head"><div><h2>Discover your next skill</h2><p>Find a student mentor and start learning.</p></div><button class="primary" onclick="openSkillModal()">＋ Publish a skill</button></div>
+    <div class="toolbar"><input class="field search" id="searchInput" placeholder="Search skills, topics or mentors..." aria-label="Search skills"><select class="field" id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option><option>Technology</option><option>Design</option><option>Business</option><option>Languages</option><option>Creative Arts</option><option>Academics</option><option>Other</option></select></div>
+    <div class="skills-grid" id="allSkills"></div>
+  </section>
+
+  <section class="page" id="requests">
+    <div class="section-head"><div><h2>Your learning activity</h2><p>Track the skills you have requested to learn.</p></div><button class="secondary" onclick="showPage('explore')">Find a skill</button></div>
+    <div class="card table-wrap"><table class="table"><thead><tr><th>Skill</th><th>Mentor</th><th>Date requested</th><th>Status</th></tr></thead><tbody id="requestRows"></tbody></table><div id="noRequests" class="empty" style="display:none">No requests yet. Explore skills and send your first learning request!</div></div>
+  </section>
+
+  <section class="page" id="leaderboard">
+    <div class="section-head"><div><h2>Campus leaderboard</h2><p>Celebrating students who share knowledge.</p></div></div>
+    <div class="card table-wrap"><table class="table"><thead><tr><th>Rank</th><th>Student</th><th>Skills shared</th><th>Community points</th></tr></thead><tbody id="leaderRows"></tbody></table></div>
+  </section>
+  <div class="footer">SkillSpan · A student-powered skill exchange platform · DNSC Asuncion</div>
+</main>
+</div>
+
+<div class="modal-backdrop" id="skillModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal"><div class="modal-head"><h2 id="modalTitle">Publish a skill</h2><button class="close" onclick="closeModal('skillModal')" aria-label="Close">×</button></div>
+  <form class="form-grid" id="skillForm">
+    <label>Skill title<input class="field" name="title" required maxlength="50" placeholder="e.g. Python for Beginners"></label>
+    <label>Category<select class="field" name="category" required><option value="">Choose a category</option><option>Technology</option><option>Design</option><option>Business</option><option>Languages</option><option>Creative Arts</option><option>Academics</option><option>Other</option></select></label>
+    <label>Your name<input class="field" name="mentor" required maxlength="35" placeholder="Enter your name"></label>
+    <label>Short description<textarea class="field" name="description" required maxlength="180" placeholder="What can students learn from you?"></textarea></label>
+    <label>Skill level<select class="field" name="level"><option>Beginner friendly</option><option>Intermediate</option><option>Advanced</option></select></label>
+    <button class="primary" type="submit">Publish skill</button>
+  </form></div>
+</div>
+<div class="modal-backdrop" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
+  <div class="modal"><div class="modal-head"><h2 id="requestTitle">Request to learn</h2><button class="close" onclick="closeModal('requestModal')" aria-label="Close">×</button></div>
+  <form class="form-grid" id="requestForm"><p id="requestDescription" class="subtitle"></p><input type="hidden" name="skillId"><label>Your name<input class="field" name="student" required maxlength="35" placeholder="Enter your name"></label><label>Message to mentor<textarea class="field" name="message" maxlength="180" placeholder="Hi! I would love to learn this skill."></textarea></label><button class="primary" type="submit">Send learning request</button></form></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
